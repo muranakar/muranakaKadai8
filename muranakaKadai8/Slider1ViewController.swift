@@ -13,19 +13,32 @@ class Slider1ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaults.standard.set(0, forKey: "sliderValue")
-        slider.value = UserDefaults.standard.float(forKey: "sliderValue")
-        sliderLabel.text = String(slider.value)
+        initialize()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        slider.value = UserDefaults.standard.float(forKey: "sliderValue")
-        sliderLabel.text = String(slider.value)
+        chageScreenUpdate()
     }
 
     @IBAction private func sliderValueChanged(_ sender: UISlider) {
-        UserDefaults.standard.set(slider.value, forKey: "sliderValue")
+        moveSliderUpdate()
+    }
+
+    private func initialize() {
+        slider.value = 0.0
         sliderLabel.text = String(slider.value)
+    }
+
+    private func chageScreenUpdate() {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        slider.value = delegate!.slideValue
+        sliderLabel.text = String(slider.value)
+    }
+
+    private func moveSliderUpdate() {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate!.slideValue = slider.value
+        sliderLabel.text = String(delegate!.slideValue)
     }
 }

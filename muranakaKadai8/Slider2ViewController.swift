@@ -13,12 +13,22 @@ class Slider2ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        slider.value = UserDefaults.standard.float(forKey: "sliderValue")
-        sliderLabel.text = String(slider.value)
+        chageScreenUpdate()
     }
 
     @IBAction private func sliderValueChanged(_ sender: UISlider) {
-        UserDefaults.standard.set(slider.value, forKey: "sliderValue")
+        moveSliderUpdate()
+    }
+
+    private func chageScreenUpdate() {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        slider.value = delegate!.slideValue
         sliderLabel.text = String(slider.value)
+    }
+
+    private func moveSliderUpdate() {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate!.slideValue = slider.value
+        sliderLabel.text = String(delegate!.slideValue)
     }
 }
