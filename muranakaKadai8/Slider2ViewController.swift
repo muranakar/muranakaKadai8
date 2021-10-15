@@ -11,6 +11,11 @@ class Slider2ViewController: UIViewController {
     @IBOutlet private weak var sliderLabel: UILabel!
     @IBOutlet private weak var slider: UISlider!
 
+    private var delegate: AppDelegate {
+        // swiftlint:disable:next force_cast
+        UIApplication.shared.delegate as! AppDelegate
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         chageScreenUpdate()
@@ -21,14 +26,12 @@ class Slider2ViewController: UIViewController {
     }
 
     private func chageScreenUpdate() {
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        slider.value = delegate!.slideValue
-        sliderLabel.text = String(slider.value)
+        slider.value = delegate.value
+        sliderLabel.text = String(delegate.value)
     }
 
     private func moveSliderUpdate() {
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        delegate!.slideValue = slider.value
-        sliderLabel.text = String(delegate!.slideValue)
+        delegate.value = slider.value
+        sliderLabel.text = String(slider.value)
     }
 }
